@@ -10,12 +10,12 @@
 4. ## Open terminal and enter the following command
     `python shell.py`  
     Now you can write your **go-dfz** program in shell and see the output
-5. ## If you want to run external
+5. ## If you want to run external file
     - Create a file with extention .dfz
-    - Save it
+    - Save it on local
     - Run using the following command  
     `RUN("yourFileName.dfz")`  
-    or, you run the following command in shell to run your go-dfz program  
+    or, you can run the following command in shell to run your first go-dfz program  
     `RUN("test.dfz")`
 
 
