@@ -2,7 +2,7 @@ RULE:
     Variable Declaration     ->  DHOR
     AND Operation            ->  EBONG
     OR Operation             ->  OTHOBA
-    NOT Operation            ->  NA
+    NOT Operation            ->  NOT
     IF Statement             ->  JODI
     ELSE IF Statement        ->  NAHOYJODI
     ELSE Statement           ->  NAHOY
