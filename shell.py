@@ -1,9 +1,9 @@
-import dumb_AAM
+import go_dfz
 
 while True:
-	text = input('dumb_AAM > ')
+	text = input('go-dfz > ')
 	if text.strip() == "": continue
-	result, error = dumb_AAM.run('<stdin>', text)
+	result, error = go_dfz.run('<stdin>', text)
 
 	if error:
 		print(error.as_string())
