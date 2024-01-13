@@ -26,6 +26,7 @@ NAHOY
     LIKH("IF er baire");
 THAM
 
+$ object
 DHOR obj = [1, "zara", "farhana", 1.20, "DJ"];
 LIKH(obj);
 
@@ -48,10 +49,10 @@ NAHOY
     LIKH("Somthing wrong hapening");
 THAM
 
-JODI NOT x == 4 TAHOLE
-    LIKH("ZARA is greatest programmer in the world");
+JODI NOT x != 4 TAHOLE
+    LIKH("PROJECT-150 was the best course of 1/2");
 NAHOY
-    LIKH("FARHANA copy paste kore");
+    LIKH("There was some errors in your code");
 THAM
 
 $ functions
