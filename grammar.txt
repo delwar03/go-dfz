@@ -1,0 +1,21 @@
+RULE:
+    Variable Declaration     ->  DHOR
+    AND Operation            ->  EBONG
+    OR Operation             ->  OTHOBA
+    NOT Operation            ->  NA
+    IF Statement             ->  JODI
+    ELSE IF Statement        ->  NAHOYJODI
+    ELSE Statement           ->  NAHOY
+    FOR Loop                 ->  FOR
+    TO Statement             ->  THEKE
+    STEP Statement           ->  EKOK
+    WHILE Statement          ->  JOTOKHHON
+    Function Declaration     ->  KAJ
+    THEN Statement           ->  TAHOLE
+    END Statement            ->  THAM
+    RETURN Statement         ->  PATHA
+    CONTINUE Statement       ->  CHOL
+    BREAK Statement          ->  BERHO
+    Input String Statement   ->  INPUT()
+    Input Integer Statement  ->  INPUT_INT()
+    Comment                  -> $ write comment

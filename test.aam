@@ -1,0 +1,28 @@
+$ Testing new features
+
+PRINT("Hello World!");
+
+DHOR res = 0;
+$ loops
+
+FOR i = 0 THEKE 5 TAHOLE
+    PRINT(2 ^ i);
+    DHOR res = res + i;
+THAM
+
+FOR j = 0 THEKE 10 TAHOLE
+    PRINT(j);
+THAM
+
+FOR k = 0 THEKE 10 TAHOLE
+    JODI k == 4 TAHOLE CHOL;
+    JODI k == 8 TAHOLE BERHO;
+    PRINT(k);
+THAM
+
+$ if-else
+JODI i == 10 TAHOLE
+    PRINT("IF er vitor");
+NAHOY
+    PRINT("IF er baire");
+THAM
