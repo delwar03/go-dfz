@@ -15,7 +15,7 @@
     - Save it on local
     - Run using the following command  
     `RUN("yourFileName.dfz")`  
-    or, you can run the following command in shell to run your first go-dfz program  
+    or, you can run the following command in shell to run your first **go-dfz** program  
     `RUN("test.dfz")`
 
 
