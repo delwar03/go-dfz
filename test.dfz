@@ -3,8 +3,8 @@ $ Testing new features
 PRINT("Hello World!");
 
 DHOR res = 0;
-$ loops
 
+$ loops
 FOR i = 0 THEKE 5 TAHOLE
     PRINT(2 ^ i);
     DHOR res = res + i;
