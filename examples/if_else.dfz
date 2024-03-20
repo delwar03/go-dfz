@@ -1,0 +1,11 @@
+$ if-else Testing
+
+dhoro a = 504
+dhoro b = 15
+dhoro c = 12
+
+jodi a >= 5 tahole
+    likho("if er vitor")
+nahoy
+    likho("if er baire")
+thamo
