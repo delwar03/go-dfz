@@ -26,4 +26,4 @@
 3. UMMAY FARHANA MARIUM
 
 ## License
-(MIT License)[LICENSE]
+[MIT License](LICENSE)
