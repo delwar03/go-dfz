@@ -1,75 +1,75 @@
 $ Testing new features
 
-LIKH("Hello World!");
+likho("Hello World!");
 
-DHOR res = 0;
+dhoro res = 0;
 
 $ loops
-FOR i = 0 THEKE 5 TAHOLE
-    LIKH(2 ^ i);
-    DHOR res = res + i;
-THAM
+for i = 0 theke 5 tahole
+    likho(2 ^ i);
+    dhoro res = res + i;
+thamo
 
-LIKH(res);
+likho(res);
 
-FOR k = 0 THEKE 10 EKOK 2 TAHOLE
-    JODI k == 4 TAHOLE CHOL;
-    JODI k == 8 TAHOLE BERHO;
-    LIKH(k);
-THAM
+for k = 0 theke 10 ekok 2 tahole
+    jodi k == 4 tahole cholo;
+    jodi k == 8 tahole berhou;
+    likho(k);
+thamo
 
 $ go_dfz
 $ if-else
-JODI i == 4 TAHOLE
-    LIKH("IF er vitor");
-NAHOY
-    LIKH("IF er baire");
-THAM
+jodi i == 4 tahole
+    likho("IF er vitor");
+nahoy
+    likho("IF er baire");
+thamo
 
 $ object
-DHOR obj = [1, "zara", "farhana", 1.20, "DJ"];
-LIKH(obj);
+dhoro obj = [1, "zara", "farhana", 1.20, "DJ"];
+likho(obj);
 
 $ take integer input
-$ DHOR dj = INPUT_INT();
-$ LIKH(dj + 4);
+$ dhoro dj = INPUT_INT();
+$ likho(dj + 4);
 
 $ input string
-$ DHOR str = INPUT();
-$ LIKH(str * 4);
+$ dhoro str = INPUT();
+$ likho(str * 4);
 
 
-DHOR x = 4;
-DHOR y = 14;
-DHOR y = 2 * x - 20;
+dhoro x = 4;
+dhoro y = 14;
+dhoro y = 2 * x - 20;
 
-JODI x == 4 EBONG y == 8 TAHOLE
-    LIKH("THIK ACHE");
-NAHOY
-    LIKH("Somthing wrong hapening");
-THAM
+jodi x == 4 ebong y == 8 tahole
+    likho("THIK ACHE");
+nahoy
+    likho("Somthing wrong hapening");
+thamo
 
-JODI NOT x != 4 TAHOLE
-    LIKH("PROJECT-150 was the best course of 1/2");
-NAHOY
-    LIKH("There was some errors in your code");
-THAM
+jodi not x != 4 tahole
+    likho("PROJECT-150 was the best course of 1/2");
+nahoy
+    likho("There was some errors in your code");
+thamo
 
 $ functions
-KAJ add(x, y)
-    PATHA x + y;
-THAM
+kaj add(x, y)
+    pathao x + y;
+thamo
 
-DHOR a = 4;
-DHOR b = 12;
-DHOR c = add(a, b);
-LIKH(c);
+dhoro a = 4;
+dhoro b = 12;
+dhoro c = add(a, b);
+likho(c);
 
-KAJ square(n) 
-    PATHA n ^ 2;
-THAM
+kaj square(n) 
+    pathao n ^ 2;
+thamo
 
-LIKH("ENTER AN INTEGER");
-DHOR x = INPUT_INT();
-DHOR ans = square(x);
-LIKH(ans);
+likho("ENTER AN INTEGER");
+dhoro x = INPUT_INT();
+dhoro ans = square(x);
+likho(ans);

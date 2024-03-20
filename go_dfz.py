@@ -125,23 +125,23 @@ TT_NEWLINE		= 'NEWLINE'
 TT_EOF				= 'EOF'
 
 KEYWORDS = [
-  'DHOR',
-  'EBONG',
-  'OTHOBA',
-  'NOT',
-  'JODI',
-  'NAHOYJODI',
-  'NAHOY',
-  'FOR',
-  'THEKE',
-  'EKOK',
-  'JOTOKHHON',
-  'KAJ',
-  'TAHOLE',
-  'THAM',
-  'PATHA',
-  'CHOL',
-  'BERHO',
+  'dhoro',
+  'ebong',
+  'othoba',
+  'not',
+  'jodi',
+  'jodinahoy',
+  'nahoy',
+  'for',
+  'theke',
+  'ekok',
+  'jotokhhon',
+  'kaj',
+  'tahole',
+  'thamo',
+  'pathao',
+  'cholo',
+  'berhou',
 ]
 
 class Token:
@@ -441,7 +441,7 @@ class IfNode:
     self.pos_start = self.cases[0][0].pos_start
     self.pos_end = (self.else_case or self.cases[len(self.cases) - 1])[0].pos_end
 
-class ForNode:
+class forNode:
   def __init__(self, var_name_tok, start_value_node, end_value_node, step_value_node, body_node, should_return_null):
     self.var_name_tok = var_name_tok
     self.start_value_node = start_value_node
@@ -621,7 +621,7 @@ class Parser:
     res = ParseResult()
     pos_start = self.current_tok.pos_start.copy()
 
-    if self.current_tok.matches(TT_KEYWORD, 'PATHA'):
+    if self.current_tok.matches(TT_KEYWORD, 'pathao'):
       res.register_advancement()
       self.advance()
 
@@ -630,12 +630,12 @@ class Parser:
         self.reverse(res.to_reverse_count)
       return res.success(ReturnNode(expr, pos_start, self.current_tok.pos_start.copy()))
     
-    if self.current_tok.matches(TT_KEYWORD, 'CHOL'):
+    if self.current_tok.matches(TT_KEYWORD, 'cholo'):
       res.register_advancement()
       self.advance()
       return res.success(ContinueNode(pos_start, self.current_tok.pos_start.copy()))
       
-    if self.current_tok.matches(TT_KEYWORD, 'BERHO'):
+    if self.current_tok.matches(TT_KEYWORD, 'berhou'):
       res.register_advancement()
       self.advance()
       return res.success(BreakNode(pos_start, self.current_tok.pos_start.copy()))
@@ -644,21 +644,21 @@ class Parser:
     if res.error:
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        "Expected 'PATHA', 'CHOL', 'BERHO', 'DHOR', 'JODI', 'FOR', 'JOTOKHHON', 'KAJ', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
+        "Expected 'pathao', 'cholo', 'berhou', 'dhoro', 'jodi', 'for', 'jotokhhon', 'kaj', int, float, identifier, '+', '-', '(', '[' or 'not'"
       ))
     return res.success(expr)
 
   def expr(self):
     res = ParseResult()
 
-    if self.current_tok.matches(TT_KEYWORD, 'DHOR'):
+    if self.current_tok.matches(TT_KEYWORD, 'dhoro'):
       res.register_advancement()
       self.advance()
 
       if self.current_tok.type != TT_IDENTIFIER:
         return res.failure(InvalidSyntaxError(
           self.current_tok.pos_start, self.current_tok.pos_end,
-          "DHOR er por identifier lagbe..."
+          "dhoro er por identifier lagbe..."
         ))
 
       var_name = self.current_tok
@@ -677,12 +677,12 @@ class Parser:
       if res.error: return res
       return res.success(VarAssignNode(var_name, expr))
 
-    node = res.register(self.bin_op(self.comp_expr, ((TT_KEYWORD, 'EBONG'), (TT_KEYWORD, 'OTHOBA'))))
+    node = res.register(self.bin_op(self.comp_expr, ((TT_KEYWORD, 'ebong'), (TT_KEYWORD, 'othoba'))))
 
     if res.error:
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        "Expected 'DHOR', 'JODI', 'FOR', 'JOTOKHHON', 'KAJ', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
+        "Expected 'dhoro', 'jodi', 'for', 'jotokhhon', 'kaj', int, float, identifier, '+', '-', '(', '[' or 'not'"
       ))
 
     return res.success(node)
@@ -690,7 +690,7 @@ class Parser:
   def comp_expr(self):
     res = ParseResult()
 
-    if self.current_tok.matches(TT_KEYWORD, 'NOT'):
+    if self.current_tok.matches(TT_KEYWORD, 'not'):
       op_tok = self.current_tok
       res.register_advancement()
       self.advance()
@@ -704,7 +704,7 @@ class Parser:
     if res.error:
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        "Expected int, float, identifier, '+', '-', '(', '[', 'JODI', 'FOR', 'JOTOKHHON', 'KAJ' or 'NOT'"
+        "Expected int, float, identifier, '+', '-', '(', '[', 'jodi', 'for', 'jotokhhon', 'kaj' or 'not'"
       ))
 
     return res.success(node)
@@ -749,7 +749,7 @@ class Parser:
         if res.error:
           return res.failure(InvalidSyntaxError(
             self.current_tok.pos_start, self.current_tok.pos_end,
-            "Expected ')', 'DHOR', 'JODI', 'FOR', 'JOTOKHHON', 'KAJ', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
+            "Expected ')', 'dhoro', 'jodi', 'for', 'jotokhhon', 'kaj', int, float, identifier, '+', '-', '(', '[' or 'not'"
           ))
 
         while self.current_tok.type == TT_COMMA:
@@ -809,29 +809,29 @@ class Parser:
       if res.error: return res
       return res.success(list_expr)
     
-    elif tok.matches(TT_KEYWORD, 'JODI'):
+    elif tok.matches(TT_KEYWORD, 'jodi'):
       if_expr = res.register(self.if_expr())
       if res.error: return res
       return res.success(if_expr)
 
-    elif tok.matches(TT_KEYWORD, 'FOR'):
+    elif tok.matches(TT_KEYWORD, 'for'):
       for_expr = res.register(self.for_expr())
       if res.error: return res
       return res.success(for_expr)
 
-    elif tok.matches(TT_KEYWORD, 'JOTOKHHON'):
+    elif tok.matches(TT_KEYWORD, 'jotokhhon'):
       while_expr = res.register(self.while_expr())
       if res.error: return res
       return res.success(while_expr)
 
-    elif tok.matches(TT_KEYWORD, 'KAJ'):
+    elif tok.matches(TT_KEYWORD, 'kaj'):
       func_def = res.register(self.func_def())
       if res.error: return res
       return res.success(func_def)
 
     return res.failure(InvalidSyntaxError(
       tok.pos_start, tok.pos_end,
-      "Expected int, float, identifier, '+', '-', '(', '[', IF', 'FOR', 'JOTOKHHON', 'KAJ'"
+      "Expected int, float, identifier, '+', '-', '(', '[', IF', 'for', 'jotokhhon', 'kaj'"
     ))
 
   def list_expr(self):
@@ -856,7 +856,7 @@ class Parser:
       if res.error:
         return res.failure(InvalidSyntaxError(
           self.current_tok.pos_start, self.current_tok.pos_end,
-          "Expected ']', 'DHOR', 'JODI', 'FOR', 'JOTOKHHON', 'KAJ', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
+          "Expected ']', 'dhoro', 'jodi', 'for', 'jotokhhon', 'kaj', int, float, identifier, '+', '-', '(', '[' or 'not'"
         ))
 
       while self.current_tok.type == TT_COMMA:
@@ -883,19 +883,19 @@ class Parser:
 
   def if_expr(self):
     res = ParseResult()
-    all_cases = res.register(self.if_expr_cases('JODI'))
+    all_cases = res.register(self.if_expr_cases('jodi'))
     if res.error: return res
     cases, else_case = all_cases
     return res.success(IfNode(cases, else_case))
 
   def if_expr_b(self):
-    return self.if_expr_cases('NAHOYJODI')
+    return self.if_expr_cases('jodinahoy')
     
   def if_expr_c(self):
     res = ParseResult()
     else_case = None
 
-    if self.current_tok.matches(TT_KEYWORD, 'NAHOY'):
+    if self.current_tok.matches(TT_KEYWORD, 'nahoy'):
       res.register_advancement()
       self.advance()
 
@@ -907,13 +907,13 @@ class Parser:
         if res.error: return res
         else_case = (statements, True)
 
-        if self.current_tok.matches(TT_KEYWORD, 'THAM'):
+        if self.current_tok.matches(TT_KEYWORD, 'thamo'):
           res.register_advancement()
           self.advance()
         else:
           return res.failure(InvalidSyntaxError(
             self.current_tok.pos_start, self.current_tok.pos_end,
-            "Expected 'THAM'"
+            "Expected 'thamo'"
           ))
       else:
         expr = res.register(self.statement())
@@ -926,7 +926,7 @@ class Parser:
     res = ParseResult()
     cases, else_case = [], None
 
-    if self.current_tok.matches(TT_KEYWORD, 'NAHOYJODI'):
+    if self.current_tok.matches(TT_KEYWORD, 'jodinahoy'):
       all_cases = res.register(self.if_expr_b())
       if res.error: return res
       cases, else_case = all_cases
@@ -953,10 +953,10 @@ class Parser:
     condition = res.register(self.expr())
     if res.error: return res
 
-    if not self.current_tok.matches(TT_KEYWORD, 'TAHOLE'):
+    if not self.current_tok.matches(TT_KEYWORD, 'tahole'):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        f"Expected 'TAHOLE'"
+        f"Expected 'tahole'"
       ))
 
     res.register_advancement()
@@ -970,7 +970,7 @@ class Parser:
       if res.error: return res
       cases.append((condition, statements, True))
 
-      if self.current_tok.matches(TT_KEYWORD, 'THAM'):
+      if self.current_tok.matches(TT_KEYWORD, 'thamo'):
         res.register_advancement()
         self.advance()
       else:
@@ -993,10 +993,10 @@ class Parser:
   def for_expr(self):
     res = ParseResult()
 
-    if not self.current_tok.matches(TT_KEYWORD, 'FOR'):
+    if not self.current_tok.matches(TT_KEYWORD, 'for'):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        f"Expected 'FOR'"
+        f"Expected 'for'"
       ))
 
     res.register_advancement()
@@ -1024,10 +1024,10 @@ class Parser:
     start_value = res.register(self.expr())
     if res.error: return res
 
-    if not self.current_tok.matches(TT_KEYWORD, 'THEKE'):
+    if not self.current_tok.matches(TT_KEYWORD, 'theke'):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        f"Expected 'THEKE'"
+        f"Expected 'theke'"
       ))
     
     res.register_advancement()
@@ -1036,7 +1036,7 @@ class Parser:
     end_value = res.register(self.expr())
     if res.error: return res
 
-    if self.current_tok.matches(TT_KEYWORD, 'EKOK'):
+    if self.current_tok.matches(TT_KEYWORD, 'ekok'):
       res.register_advancement()
       self.advance()
 
@@ -1045,10 +1045,10 @@ class Parser:
     else:
       step_value = None
 
-    if not self.current_tok.matches(TT_KEYWORD, 'TAHOLE'):
+    if not self.current_tok.matches(TT_KEYWORD, 'tahole'):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        f"Expected 'TAHOLE'"
+        f"Expected 'tahole'"
       ))
 
     res.register_advancement()
@@ -1061,29 +1061,29 @@ class Parser:
       body = res.register(self.statements())
       if res.error: return res
 
-      if not self.current_tok.matches(TT_KEYWORD, 'THAM'):
+      if not self.current_tok.matches(TT_KEYWORD, 'thamo'):
         return res.failure(InvalidSyntaxError(
           self.current_tok.pos_start, self.current_tok.pos_end,
-          f"Expected 'THAM'"
+          f"Expected 'thamo'"
         ))
 
       res.register_advancement()
       self.advance()
 
-      return res.success(ForNode(var_name, start_value, end_value, step_value, body, True))
+      return res.success(forNode(var_name, start_value, end_value, step_value, body, True))
     
     body = res.register(self.statement())
     if res.error: return res
 
-    return res.success(ForNode(var_name, start_value, end_value, step_value, body, False))
+    return res.success(forNode(var_name, start_value, end_value, step_value, body, False))
 
   def while_expr(self):
     res = ParseResult()
 
-    if not self.current_tok.matches(TT_KEYWORD, 'JOTOKHHON'):
+    if not self.current_tok.matches(TT_KEYWORD, 'jotokhhon'):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        f"Expected 'JOTOKHHON'"
+        f"Expected 'jotokhhon'"
       ))
 
     res.register_advancement()
@@ -1092,10 +1092,10 @@ class Parser:
     condition = res.register(self.expr())
     if res.error: return res
 
-    if not self.current_tok.matches(TT_KEYWORD, 'TAHOLE'):
+    if not self.current_tok.matches(TT_KEYWORD, 'tahole'):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        f"Expected 'TAHOLE'"
+        f"Expected 'tahole'"
       ))
 
     res.register_advancement()
@@ -1108,10 +1108,10 @@ class Parser:
       body = res.register(self.statements())
       if res.error: return res
 
-      if not self.current_tok.matches(TT_KEYWORD, 'THAM'):
+      if not self.current_tok.matches(TT_KEYWORD, 'thamo'):
         return res.failure(InvalidSyntaxError(
           self.current_tok.pos_start, self.current_tok.pos_end,
-          f"Expected 'THAM'"
+          f"Expected 'thamo'"
         ))
 
       res.register_advancement()
@@ -1127,10 +1127,10 @@ class Parser:
   def func_def(self):
     res = ParseResult()
 
-    if not self.current_tok.matches(TT_KEYWORD, 'KAJ'):
+    if not self.current_tok.matches(TT_KEYWORD, 'kaj'):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        f"Expected 'KAJ'"
+        f"Expected 'kaj'"
       ))
 
     res.register_advancement()
@@ -1217,10 +1217,10 @@ class Parser:
     body = res.register(self.statements())
     if res.error: return res
 
-    if not self.current_tok.matches(TT_KEYWORD, 'THAM'):
+    if not self.current_tok.matches(TT_KEYWORD, 'thamo'):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        f"Expected 'THAM'"
+        f"Expected 'thamo'"
       ))
 
     res.register_advancement()
@@ -2009,9 +2009,9 @@ class Interpreter:
       result, error = left.get_comparison_lte(right)
     elif node.op_tok.type == TT_GTE:
       result, error = left.get_comparison_gte(right)
-    elif node.op_tok.matches(TT_KEYWORD, 'EBONG'):
+    elif node.op_tok.matches(TT_KEYWORD, 'ebong'):
       result, error = left.anded_by(right)
-    elif node.op_tok.matches(TT_KEYWORD, 'OTHOBA'):
+    elif node.op_tok.matches(TT_KEYWORD, 'othoba'):
       result, error = left.ored_by(right)
 
     if error:
@@ -2028,7 +2028,7 @@ class Interpreter:
 
     if node.op_tok.type == TT_MINUS:
       number, error = number.multed_by(Number(-1))
-    elif node.op_tok.matches(TT_KEYWORD, 'NOT'):
+    elif node.op_tok.matches(TT_KEYWORD, 'not'):
       number, error = number.notted()
 
     if error:
@@ -2056,7 +2056,7 @@ class Interpreter:
 
     return res.success(Number.null)
 
-  def visit_ForNode(self, node, context):
+  def visit_forNode(self, node, context):
     res = RTResult()
     elements = []
 
@@ -2182,7 +2182,7 @@ global_symbol_table.set("NULL", Number.null)
 global_symbol_table.set("FALSE", Number.false)
 global_symbol_table.set("TRUE", Number.true)
 global_symbol_table.set("MATH_PI", Number.math_PI)
-global_symbol_table.set("LIKH", BuiltInFunction.print)
+global_symbol_table.set("likho", BuiltInFunction.print)
 global_symbol_table.set("PRINT_RET", BuiltInFunction.print_ret)
 global_symbol_table.set("INPUT", BuiltInFunction.input)
 global_symbol_table.set("INPUT_INT", BuiltInFunction.input_int)
